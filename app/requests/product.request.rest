@@ -1,0 +1,22 @@
+GET http://127.0.0.1:3003/user
+
+###
+POST http://127.0.0.1:3003/user
+Content-Type: application/json
+
+{
+    "firstName": "Demo10",
+    "lastName": "Demo10",
+    "email": "demo10@example.com"
+}
+
+###
+DELETE  http://127.0.0.1:3003/user/4
+
+
+###
+DELETE http://127.0.0.1:3003/user
+
+
+###
+GET http://127.0.0.1:3003/orderuser
