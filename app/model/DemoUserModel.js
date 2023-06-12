@@ -33,8 +33,6 @@ const UserModel = sequelize.define('DemoUser', {
     freezeTableName: true
 });
 
-// UserModel.sync();
 
 module.exports = { UserModel };
-
 

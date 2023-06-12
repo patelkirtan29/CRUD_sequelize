@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const mssqlapiController = require('../controller/mssqlapiController');
 const postgresapiController = require('../controller/postgresApiController');
+const associationsController = require('../controller/associationController');
 
 const routes = Router();
 
@@ -13,6 +14,12 @@ routes.delete('/user/:id', postgresapiController.deleteuser);
 routes.delete('/user', postgresapiController.truncateuser);
 
 routes.get('/orderuser', postgresapiController.orderuser);
+
+//associations
+routes.get('/products', associationsController.getProducts);
+routes.get('/orders', associationsController.getOrders);
+routes.get('/custorders', associationsController.getcustomerOrder);
+routes.get('/custordersprods', associationsController.getcustOrderandProduct);
 
 
 module.exports = routes;

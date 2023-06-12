@@ -5,9 +5,9 @@ POST http://127.0.0.1:3003/user
 Content-Type: application/json
 
 {
-    "firstName": "Demo10",
-    "lastName": "Demo10",
-    "email": "demo10@example.com"
+    "firstName": "Demo14",
+    "lastName": "Demo14",
+    "email": "demo14@example.com"
 }
 
 ###

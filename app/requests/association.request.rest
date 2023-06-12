@@ -1,0 +1,12 @@
+GET http://127.0.0.1:3003/products
+
+
+###
+Get http://127.0.0.1:3003/orders
+
+
+###
+Get http://127.0.0.1:3003/custorders
+
+###
+Get http://127.0.0.1:3003/custordersprods

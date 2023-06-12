@@ -1,23 +1,59 @@
 const sequelize = require('../config/dbConnection/postgresConnection');
 const { UserModel } = require('../model/DemoUserModel');
+const t = sequelize.transaction();
 
 
 //get user api
 module.exports.getuser = async (req, res) => {
-    const result = await UserModel.findAll({});
-    res.send(result);
+    try {
+        const user = await UserModel.findAll({
+            skipLocked: true,
+        });
+        res.send(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
 }
 
 
 //post user api
 module.exports.postuser = async (req, res) => {
-    const { firstName, lastName, email } = req.body;
-    const result = await UserModel.create({
-        firstName,
-        lastName,
-        email
-    });
-    res.send(result);
+    //unmanaged transactions
+    try {
+        const { firstName, lastName, email } = req.body;
+        const resultuser = await UserModel.create({
+            firstName,
+            lastName,
+            email
+        }, { transaction: t });
+        res.send(resultuser);
+        (await t).commit()
+        
+    } catch (err) {
+        (await t).rollback();
+        console.log(err);
+        res.status(500).send(err);
+    }
+
+
+    //managed transactions
+    // try {
+    //     const result = sequelize.transaction(async (t) => {
+    //         const { firstName, lastName, email } = req.body;
+    //         const resultuser = await UserModel.create({
+    //             firstName,
+    //             lastName,
+    //             email
+    //         }, { transaction: t });
+    //         res.send(resultuser);
+    //     });
+    // }
+    // catch (error) {
+    //     console.log(error);
+    //     res.status(500).send(error);
+    // }
+
 }
 
 
@@ -61,10 +97,10 @@ module.exports.orderuser = async (req, res) => {
     res.send(result)
 
     const result1 = await UserModel.findAll({
-        order:[
+        order: [
             [sequelize.fn('upper', sequelize.col('firstName'))]
         ]
-    }) 
+    })
     console.log(result1)
 }
 
